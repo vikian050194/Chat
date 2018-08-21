@@ -1,0 +1,8 @@
+.user-current {
+    color: green;
+    font-weight: bold;
+}
+
+.user-other {
+    color: gray;
+}

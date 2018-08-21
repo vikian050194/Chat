@@ -1,0 +1,38 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "babel client/test.js -d build",
+    "start": "node server/app.js",
+    "webpack": "webpack",
+    "start-dev": "node-dev server/app.js",
+    "webpack-dev": "webpack -w"
+  },
+  "engines": {
+    "node": "^8.9.4"
+  },
+  "dependencies": {
+    "backbone": "^1.3.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "jquery": "^3.3.1",
+    "microevents": "^0.3.3",
+    "node-sass": "^4.7.2",
+    "resolve-url-loader": "^2.3.0",
+    "socket.io-client": "^2.1.1",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^3.10.0"
+  }
+}
