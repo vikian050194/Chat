@@ -11,6 +11,10 @@ export default Backbone.Model.extend({
         this.socket.on("user:logout", function (data) {
             Backbone.trigger("user:logout", data);
         });
+
+        this.socket.on("message:new", function (data) {
+            Backbone.trigger("message:new", data);
+        });
     },
 
     joinUser: function (userName) {
@@ -19,5 +23,9 @@ export default Backbone.Model.extend({
 
     quitUser: function(){
         this.socket.emit("user:logout");
+    },
+
+    sendNewMessage: function(newMessage){
+        this.socket.emit("message:send", newMessage);
     }
 });

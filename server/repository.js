@@ -17,7 +17,9 @@ module.exports = class Repository {
     }
 
     addUser(userName) {
-        this.users.push(userName);
+        if(this.users.indexOf(userName)===-1){
+            this.users.push(userName);
+        }
     }
 
     getUsers() {

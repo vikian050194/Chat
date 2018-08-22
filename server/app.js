@@ -15,7 +15,16 @@ io.on("connection", function (client) {
             isMe: false
         });
     });
-    
+
+    repository.getMessages().forEach(element => {
+        client.emit("message:new", {
+            userName: element.userName,
+            message: element.message,
+            isMe: client.userName === element.userName,
+            isInfo: element.isInfo
+        });
+    });
+
     client.on("user:login", function (userName) {
         client.userName = userName;
         console.log(`"${userName}" is logged in`);
@@ -31,6 +40,23 @@ io.on("connection", function (client) {
         });
 
         repository.addUser(userName);
+        repository.addMessage({
+            userName: "System",
+            message: `${userName} is logged in`,
+            isInfo: true
+        });
+        client.emit("message:new", {
+            userName: "System",
+            message: `${userName} is logged in`,
+            isMe: false,
+            isInfo: true
+        });
+        client.broadcast.emit("message:new",{
+            userName: "System",
+            message: `${userName} is logged in`,
+            isMe: false,
+            isInfo: true
+        });
     });
 
     client.on("user:logout", function () {
@@ -45,6 +71,40 @@ io.on("connection", function (client) {
         });
 
         repository.removeUser(client.userName);
+        repository.addMessage({
+            userName: "System",
+            message: `${client.userName} is logged out`,
+            isInfo: true
+        });
+        client.emit("message:new", {
+            userName: "System",
+            message: `${client.userName} is logged out`,
+            isMe: false,
+            isInfo: true
+        });
+        client.broadcast.emit("message:new",{
+            userName: "System",
+            message: `${client.userName} is logged out`,
+            isMe: false,
+            isInfo: true
+        });
+    });
+
+    client.on("message:send", function (message) {
+        var data = {
+            userName: client.userName,
+            message
+        };
+
+        client.emit("message:new", Object.assign({}, data, {
+            isMe: true
+        }));
+
+        client.broadcast.emit("message:new", Object.assign({}, data, {
+            isMe: false
+        }));
+
+        repository.addMessage(data);
     });
 
     console.log("New user is connected");

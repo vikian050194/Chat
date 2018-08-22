@@ -1,4 +1,6 @@
 import UsersView from "./users";
+import MessagesView from "./messages";
+import MessageFormView from "./message-form";
 
 export default Backbone.View.extend({
     events: {
@@ -6,31 +8,40 @@ export default Backbone.View.extend({
     },
 
     template: function () {
-        return `<h1>Chat</h1>
-        <button class="join">Join</button>`;
+        return `<button class="join">Join</button>`;
     },
 
     initialize: function () {
         window.addEventListener("beforeunload", (e) => {
             this.model.quitUser();
         });
+
+        Backbone.on("message:send", this.sendNewMessage, this);
     },
 
     render: function () {
         this.$el.html(this.template());
         this.$el.append(new UsersView().render().el);
-
+        this.$el.append(new MessagesView().render().el);
+     
         return this;
     },
 
     onJoinClick: function () {
-        let userName = prompt("What is you name?");
+        let userName = prompt("What is your name?");
 
-        if (userName == null) {
+        if (userName === "") {
             return;
         }
 
-        this.$("button.join").hide();
+        this.$("button.join").remove();
+           
         this.model.joinUser(userName);
+
+        this.$el.append(new MessageFormView().render().el);
+    },
+
+    sendNewMessage: function(newMessage){
+        this.model.sendNewMessage(newMessage);
     }
 });

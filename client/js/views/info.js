@@ -2,7 +2,7 @@ export default Backbone.View.extend({
     tagName: "p",
 
     template: function (data) {
-        return `<label><span class="${data.isMe ? "user-current" : ""}">${data.userName}</span> : <span>${data.message}</span></label>`;
+        return `<label class="info">${data.userName} : ${data.message}</label>`;
     },
 
     render: function () {
