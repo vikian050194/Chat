@@ -27,7 +27,7 @@ io.on("connection", function (client) {
 
     client.on("user:login", function (userName) {
         client.userName = userName;
-        console.log(`"${userName}" is logged in`);
+        console.info(`"${userName}" is logged in`);
 
         client.emit("user:login", {
             userName: userName,
