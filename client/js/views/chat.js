@@ -8,11 +8,11 @@ export default Backbone.View.extend({
     },
 
     template: function () {
-        return `<button class="join">Join</button>`;
+        return "<button class=\"join\">Join</button>";
     },
 
     initialize: function () {
-        window.addEventListener("beforeunload", (e) => {
+        window.addEventListener("beforeunload", () => {
             this.model.quitUser();
         });
 

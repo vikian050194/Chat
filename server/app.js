@@ -1,7 +1,7 @@
 const port = process.env.PORT || 8080;
 
-const express = require('express'),
-    bodyParser = require('body-parser'),
+const express = require("express"),
+    bodyParser = require("body-parser"),
     app = express(),
     server = require("http").createServer(app),
     io = require("socket.io")(server),
@@ -113,11 +113,11 @@ io.on("connection", function (client) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static('client'));
+app.use(express.static("client"));
 
-var router = require('./router');
-app.use('/', router);
+var router = require("./router");
+app.use("/", router);
 
 server.listen(port, function () {
-    console.log('Listening on port ' + port);
+    console.log("Listening on port " + port);
 });

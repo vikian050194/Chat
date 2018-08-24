@@ -3,7 +3,7 @@ import InfoView from "./info";
 
 export default Backbone.View.extend({
     template: function () {
-        return `<h2>Messages</h2>`;
+        return "<h2>Messages</h2>";
     },
 
     initialize: function () {
@@ -23,12 +23,12 @@ export default Backbone.View.extend({
     },
 
     addMessage: function (data) {
-        if(data.isInfo){
+        if (data.isInfo) {
             this.addInfo(data);
-        }else{
+        } else {
             this.$el.append(new MessageView({ model: data })
-            .render()
-            .el);
+                .render()
+                .el);
         }
     }
 });

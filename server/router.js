@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "production") {
 
 router.route("*")
     .all(function (req, res) {
-        res.sendStatus(404)
+        res.sendStatus(404);
     });
 
 module.exports = router;

@@ -4,11 +4,8 @@ var TodoForm = Backbone.View.extend({
         "submit": "save"
     },
 
-    template: function (data) {
-        return `<form>
-        <input placeholder="Type your text here..." name="description" />
-        <button >Send</button>
-        </form>`;
+    template: function () {
+        return "<form><input placeholder=\"Type your text here...\" name=\"description\" /><button >Send</button></form>";
     },
 
     render: function () {

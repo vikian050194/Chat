@@ -4,7 +4,7 @@ export default Backbone.View.extend({
     tagName: "div",
     
     template: function () {
-        return `<h2>Users</h2>`;
+        return "<h2>Users</h2>";
     },
 
     initialize: function () {
