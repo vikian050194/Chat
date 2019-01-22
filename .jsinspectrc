@@ -1,0 +1,10 @@
+{
+    "threshold": 30,
+    "identifiers": false,
+    "literals": false,
+    "color": true,
+    "minInstances": 2,
+    "ignore": "test|spec|mock|build",
+    "reporter": "default",
+    "truncate": 100
+}

@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "babel client/test.js -d build",
     "start": "node server/app.js",
     "webpack": "webpack",
     "start-dev": "node-dev server/app.js",
-    "webpack-dev": "webpack -w"
+    "webpack-dev": "webpack -w",
+    "inspect": "jsinspect"
   },
   "engines": {
     "node": "^8.9.4"
