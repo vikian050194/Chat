@@ -1,40 +1,70 @@
-var webpack = require("webpack"),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require("path");
+const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: ["./client/js/index.js", "./client/js/index.css.js"],
+    mode: "development",
+    entry: ["./client/js/index.js", "bootstrap-loader/extractStyles", "./client/build.js"],
     devtool: "inline-source-map",
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                use: {
+                use: [{
                     loader: "babel-loader",
                     options: {
-                        presets: ["babel-preset-env"]
+                        presets: ["env"]
                     }
-                }
+                },
+                "eslint-loader"]
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader"
+                ]
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot)$/,
+                loader: "url-loader",
+                options: {
+                    limit: 1024,
+                    name: "[name].[ext]",
+                    outputPath: "fonts/",
+                    publicPath: "fonts/"
+                }
+            },
+            {
+                test: /\.ico$/,
+                loader: "file-loader",
+                options: {
+                    limit: 1024,
+                    name: "[name].[ext]"
+                }
+            },
+            {
+                test: /\.(html)$/,
+                loader: "file-loader",
+                options: {
+                    limit: 1024,
+                    name: "[name].[ext]"
+                }
             }
         ]
     },
     output: {
-        filename: "./build/bundle.js",
-        path: __dirname + "/client"
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "client", "build")
     },
     plugins: [
         new webpack.ProvidePlugin({
             "$": "jquery",
-            "jQuery": "jquery",
-            "Backbone": "backbone"
+            "jQuery": "jquery"
         }),
-        new ExtractTextPlugin("./build/bundle.css")
+        new MiniCssExtractPlugin({
+            filename: "bundle.css"
+        })
     ]
 };

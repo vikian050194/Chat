@@ -1,20 +1,6 @@
 {
     "sourceMap": false,
     "presets": [
-        [
-            "env",
-            {
-                "targets": {
-                    "browsers": [
-                        "ie >= 11",
-                        "edge >= 41",
-                        "opera >= 50",
-                        "firefox >= 58",
-                        "chrome >= 64",
-                        "safari >= 11"
-                    ]
-                }
-            }
-        ]
+        "env"
     ]
 }

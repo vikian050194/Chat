@@ -8,6 +8,8 @@ const express = require("express"),
     Repository = require("./repository"),
     repository = new Repository();
 
+const systemUser = "SYSTEM";
+
 io.on("connection", function (client) {
     repository.getUsers().forEach(element => {
         client.emit("user:login", {
@@ -41,18 +43,18 @@ io.on("connection", function (client) {
 
         repository.addUser(userName);
         repository.addMessage({
-            userName: "System",
+            userName: systemUser,
             message: `${userName} is logged in`,
             isInfo: true
         });
         client.emit("message:new", {
-            userName: "System",
+            userName: systemUser,
             message: `${userName} is logged in`,
             isMe: false,
             isInfo: true
         });
         client.broadcast.emit("message:new",{
-            userName: "System",
+            userName: systemUser,
             message: `${userName} is logged in`,
             isMe: false,
             isInfo: true
@@ -64,7 +66,7 @@ io.on("connection", function (client) {
             return;
         }
 
-        console.log(`"${client.userName}" is logged out`);
+        console.info(`"${client.userName}" is logged out`);
 
         client.broadcast.emit("user:logout", {
             userName: client.userName
@@ -72,18 +74,18 @@ io.on("connection", function (client) {
 
         repository.removeUser(client.userName);
         repository.addMessage({
-            userName: "System",
+            userName: systemUser,
             message: `${client.userName} is logged out`,
             isInfo: true
         });
         client.emit("message:new", {
-            userName: "System",
+            userName: systemUser,
             message: `${client.userName} is logged out`,
             isMe: false,
             isInfo: true
         });
         client.broadcast.emit("message:new",{
-            userName: "System",
+            userName: systemUser,
             message: `${client.userName} is logged out`,
             isMe: false,
             isInfo: true
@@ -107,17 +109,17 @@ io.on("connection", function (client) {
         repository.addMessage(data);
     });
 
-    console.log("New user is connected");
+    console.info("New user is connected");
 });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static("client"));
+app.use(express.static("client/build"));
 
 var router = require("./router");
 app.use("/", router);
 
 server.listen(port, function () {
-    console.log("Listening on port " + port);
+    console.info("Listening on port " + port);
 });
