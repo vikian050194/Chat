@@ -26,6 +26,7 @@ export default class App {
 
     run() {
         const chat = document.getElementById("chat");
+        const users = document.getElementById("users");
 
         const addMessage = (data) => {
             let className = "";
@@ -43,16 +44,23 @@ export default class App {
             chat.appendChild(newDiv);
         };
 
+        const addUser = (data) => {
+            let newDiv = document.createElement("p");
+            newDiv.id = data.userName;
+            newDiv.className = data.isMe ? "user-current" : "user-other";
+            let newContent = document.createTextNode(data.userName);
+            newDiv.appendChild(newContent);
+            users.appendChild(newDiv);
+        };
+
+        const deleteUser = (data) => {
+            document.getElementById(data.userName).remove();
+        };
+
         this.login();
 
-        // this.socket.on("user:login", (data) => {
-        //     addMessage(`${data.userName} is logged IN`);
-        // });
-
-        // this.socket.on("user:logout", (data) => {
-        //     addMessage(`${data.userName} is logged OUT`);
-        // });
-
+        this.socket.on("user:login", addUser);
+        this.socket.on("user:logout", deleteUser);
         this.socket.on("message:new", addMessage);
     }
 }
