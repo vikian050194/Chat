@@ -20,13 +20,24 @@ export default class App {
         this.socket.emit("user:login", this.user);
     }
 
-    sendNewMessage(message) {
-        this.socket.emit("message:send", { user: this.user, message });
-    }
-
     run() {
-        const chat = document.getElementById("chat");
-        const users = document.getElementById("users");
+        const chat = document.querySelector("#chat");
+        const users = document.querySelector("#users");
+        const form = document.querySelector("form");
+        const input = document.querySelector("input");
+        input.focus();
+        
+        const sendNewMessage = (message) => {
+            this.socket.emit("message:send", message);
+        };
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            sendNewMessage(input.value);
+
+            input.value = "";
+        });
 
         const addMessage = (data) => {
             let className = "";
