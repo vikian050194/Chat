@@ -7,7 +7,9 @@
         "statusBar.background": "#8c2426",
         "statusBarItem.hoverBackground": "#b52e31",
         "statusBar.foreground": "#e7e7e7",
-        "tab.activeBorder": "#8c2426"
+        "tab.activeBorder": "#8c2426",
+        "statusBar.border": "#8c2426",
+        "titleBar.border": "#8c2426"
     },
     "peacock.color": "#b52e31"
 }
